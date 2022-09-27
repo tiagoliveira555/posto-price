@@ -6,6 +6,10 @@ import { IUserRepository } from "../IUserRepository";
 export class UserRepository implements IUserRepository {
   private repository = AppDataSource.getRepository(User);
 
+  async save(user: User): Promise<void> {
+    await this.repository.save(user);
+  }
+
   async findAll(): Promise<User[]> {
     return await this.repository.find();
   }
@@ -22,12 +26,6 @@ export class UserRepository implements IUserRepository {
     const user = this.repository.create(createUserDto);
 
     await this.repository.save(user);
-
-    return user;
-  }
-
-  async update(id: string, user: User): Promise<User> {
-    const updateUser = this.repository.update({ id }, user);
 
     return user;
   }

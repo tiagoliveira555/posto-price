@@ -24,22 +24,22 @@ export class UserContoller {
   }
 
   async create(req: Request, res: Response) {
-    const { name, username, password } = req.body as CreateUserDto;
+    const createUserDto = req.body as CreateUserDto;
 
     const service = container.resolve(UserService);
 
-    const user = await service.create({ name, username, password });
+    const user = await service.create(createUserDto);
 
     return res.status(201).json(user);
   }
 
   async update(req: Request, res: Response) {
     const { id } = req.params;
-    const { name, username, password } = req.body as UpdateUserDto;
+    const updateUserDto = req.body as UpdateUserDto;
 
     const service = container.resolve(UserService);
 
-    const user = await service.update(id, { name, username, password });
+    const user = await service.update(id, updateUserDto);
 
     return res.json(user);
   }

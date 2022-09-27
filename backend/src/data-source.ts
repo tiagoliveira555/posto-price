@@ -3,7 +3,7 @@ import "dotenv/config";
 import "./ioc/container";
 import { DataSource } from "typeorm";
 
-const port = process.env.TYPEORM_PORT as number | undefined;
+const port = Number(process.env.TYPEORM_PORT);
 
 export const AppDataSource = new DataSource({
   type: "postgres",

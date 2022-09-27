@@ -73,9 +73,9 @@ export class UserService {
     user.username = username;
     user.password = hashPass;
 
-    const updatedUser = await this.userRepository.update(id, user);
+    await this.userRepository.save(user);
 
-    return userToDto(updatedUser);
+    return userToDto(user);
   }
 
   async delete(id: string): Promise<void> {
