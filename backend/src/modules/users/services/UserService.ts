@@ -1,12 +1,13 @@
 import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
+
 import { IUserRepository } from "../repositories/IUserRepository";
-import { CreateUserDto } from "../dtos/request/CreateUserDto";
-import { UserDto } from "../dtos/response/UserDto";
-import { userToDto } from "../../helpers/userToDto";
-import { NotFound } from "../../errors/NotFound";
-import { BadRequest } from "../../errors/BadRequest";
-import { UpdateUserDto } from "../dtos/request/UpdateUserDto";
+import { ICreateUserRequest } from "../interfaces/ICreateUserRequest";
+import { userToDto } from "../helpers/userToDto";
+import { NotFound } from "../../../shared/errors/NotFound";
+import { BadRequest } from "../../../shared/errors/BadRequest";
+import { IUpdateUserRequest } from "../interfaces/IUpdateUserRequest";
+import { IUserResponse } from "../interfaces/IUserResponse";
 
 @injectable()
 export class UserService {
@@ -15,7 +16,7 @@ export class UserService {
     private userRepository: IUserRepository
   ) {}
 
-  async findAll(): Promise<UserDto[]> {
+  async findAll(): Promise<IUserResponse[]> {
     const users = await this.userRepository.findAll();
 
     const userDto = users.map((user) => userToDto(user));
@@ -23,7 +24,7 @@ export class UserService {
     return userDto;
   }
 
-  async findOne(id: string): Promise<UserDto> {
+  async findOne(id: string): Promise<IUserResponse> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
@@ -33,7 +34,11 @@ export class UserService {
     return userToDto(user);
   }
 
-  async create({ name, username, password }: CreateUserDto): Promise<UserDto> {
+  async create({
+    name,
+    username,
+    password,
+  }: ICreateUserRequest): Promise<IUserResponse> {
     const userExist = await this.userRepository.findByUserName(username);
 
     if (userExist) {
@@ -53,8 +58,8 @@ export class UserService {
 
   async update(
     id: string,
-    { name, username, password }: UpdateUserDto
-  ): Promise<UserDto> {
+    { name, username, password }: IUpdateUserRequest
+  ): Promise<IUserResponse> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
@@ -78,7 +83,7 @@ export class UserService {
     return userToDto(user);
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string) {
     const user = await this.userRepository.findById(id);
 
     if (!user) {

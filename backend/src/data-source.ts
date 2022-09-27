@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import "dotenv/config";
-import "./ioc/container";
+import "./shared/container";
 import { DataSource } from "typeorm";
 
 const port = Number(process.env.TYPEORM_PORT);

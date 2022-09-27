@@ -1,4 +1,4 @@
-import { CreateUserDto } from "../dtos/request/CreateUserDto";
+import { ICreateUserRequest } from "../interfaces/ICreateUserRequest";
 import { User } from "../entities/User";
 
 export interface IUserRepository {
@@ -6,6 +6,6 @@ export interface IUserRepository {
   findAll(): Promise<User[]>;
   findById(id: string): Promise<User | null>;
   findByUserName(username: string): Promise<User | null>;
-  create(createUserDto: CreateUserDto): Promise<User>;
+  create(createUserDto: ICreateUserRequest): Promise<User>;
   remove(id: string): Promise<void>;
 }

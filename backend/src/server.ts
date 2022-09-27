@@ -1,8 +1,8 @@
 import "express-async-errors";
 import express from "express";
 import { AppDataSource } from "./data-source";
-import { errorMiddleware } from "./middlewares/errorMiddleware";
-import { routes } from "./routes/routes";
+import { routes } from "./shared/routes";
+import { errorMiddleware } from "./shared/middlewares/errorMiddleware";
 
 AppDataSource.initialize().then(() => {
   const port = process.env.PORT || 3333;
