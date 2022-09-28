@@ -8,6 +8,7 @@ import { LoginUserController } from "../../modules/users/controllers/LoginUserCo
 import { UpdateUserContoller } from "../../modules/users/controllers/UpdateUserController";
 
 import { idValidate } from "../middlewares/idValidate";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 import { loginValidate } from "../middlewares/loginValidate";
 import { userValidate } from "../middlewares/userValidate";
 import { validate } from "../middlewares/validate";
@@ -21,6 +22,10 @@ userRoutes.post(
   new LoginUserController().handle
 );
 
+userRoutes.post("/", userValidate, validate, new CreateUserController().handle);
+
+userRoutes.use(isAuthenticated);
+
 userRoutes.get("/", new ListAllUserContoller().handle);
 
 userRoutes.get(
@@ -29,8 +34,6 @@ userRoutes.get(
   validate,
   new FindOneUserController().handle
 );
-
-userRoutes.post("/", userValidate, validate, new CreateUserController().handle);
 
 userRoutes.put(
   "/:id",

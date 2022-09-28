@@ -20,9 +20,9 @@ export class LoginUserService {
       throw new Unauthorized("Usuário ou senha icorretos.");
     }
 
-    const compairPass = await bcript.compare(password, user.password);
+    const verifyPass = await bcript.compare(password, user.password);
 
-    if (!compairPass) {
+    if (!verifyPass) {
       throw new Unauthorized("Usuário ou senha icorretos.");
     }
 
