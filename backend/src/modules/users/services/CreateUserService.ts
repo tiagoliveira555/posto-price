@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 import { IUserRepository } from "../repositories/IUserRepository";
 import { ICreateUserRequest } from "../interfaces/ICreateUserRequest";
-import { userToDto } from "../helpers/userToDto";
+import { userToUserResponse } from "../helpers/userToUserResponse";
 import { BadRequest } from "../../../shared/errors/BadRequest";
 import { IUserResponse } from "../interfaces/IUserResponse";
 
@@ -33,6 +33,6 @@ export class CreateUserService {
       password: hashPass,
     });
 
-    return userToDto(user);
+    return userToUserResponse(user);
   }
 }

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { userToDto } from "../helpers/userToDto";
+import { userToUserResponse } from "../helpers/userToUserResponse";
 import { NotFound } from "../../../shared/errors/NotFound";
 import { IUserResponse } from "../interfaces/IUserResponse";
 
@@ -19,6 +19,6 @@ export class FindOneUserService {
       throw new NotFound("Usuário não encontrado");
     }
 
-    return userToDto(user);
+    return userToUserResponse(user);
   }
 }

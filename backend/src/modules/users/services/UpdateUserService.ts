@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { userToDto } from "../helpers/userToDto";
+import { userToUserResponse } from "../helpers/userToUserResponse";
 import { NotFound } from "../../../shared/errors/NotFound";
 import { BadRequest } from "../../../shared/errors/BadRequest";
 import { IUpdateUserRequest } from "../interfaces/IUpdateUserRequest";
@@ -39,6 +39,6 @@ export class UpdateUserService {
 
     await this.userRepository.save(user);
 
-    return userToDto(user);
+    return userToUserResponse(user);
   }
 }
