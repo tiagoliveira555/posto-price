@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { userToUserResponse } from "../helpers/userToUserResponse";
-import { IUserResponse } from "../interfaces/IUserResponse";
+import { userToUserDto } from "../helpers/userToUserDto";
+import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class ListAllUserService {
@@ -11,10 +11,10 @@ export class ListAllUserService {
     private userRepository: IUserRepository
   ) {}
 
-  async execute(): Promise<IUserResponse[]> {
+  async execute(): Promise<IUserDto[]> {
     const users = await this.userRepository.findAll();
 
-    const userDto = users.map((user) => userToUserResponse(user));
+    const userDto = users.map((user) => userToUserDto(user));
 
     return userDto;
   }

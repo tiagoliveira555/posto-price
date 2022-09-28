@@ -2,11 +2,11 @@ import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { userToUserResponse } from "../helpers/userToUserResponse";
+import { userToUserDto } from "../helpers/userToUserDto";
 import { NotFound } from "../../../shared/errors/NotFound";
 import { BadRequest } from "../../../shared/errors/BadRequest";
-import { IUpdateUserRequest } from "../interfaces/IUpdateUserRequest";
-import { IUserResponse } from "../interfaces/IUserResponse";
+import { IUpdateUserDto } from "../dtos/IUpdateUserDto";
+import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class UpdateUserService {
@@ -17,8 +17,8 @@ export class UpdateUserService {
 
   async execute(
     id: string,
-    { name, username, password }: IUpdateUserRequest
-  ): Promise<IUserResponse> {
+    { name, username, password }: IUpdateUserDto
+  ): Promise<IUserDto> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
@@ -39,6 +39,6 @@ export class UpdateUserService {
 
     await this.userRepository.save(user);
 
-    return userToUserResponse(user);
+    return userToUserDto(user);
   }
 }

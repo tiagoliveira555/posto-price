@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../../../data-source";
-import { ICreateUserRequest } from "../../interfaces/ICreateUserRequest";
+import { ICreateUserDto } from "../../dtos/ICreateUserDto";
 import { User } from "../../entities/User";
 import { IUserRepository } from "../IUserRepository";
 
@@ -22,7 +22,7 @@ export class UserRepositoryTypeOrm implements IUserRepository {
     return await this.repository.findOneBy({ username });
   }
 
-  async create(createUserDto: ICreateUserRequest): Promise<User> {
+  async create(createUserDto: ICreateUserDto): Promise<User> {
     const user = this.repository.create(createUserDto);
 
     await this.repository.save(user);

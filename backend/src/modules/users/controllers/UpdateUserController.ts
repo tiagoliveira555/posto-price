@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { IUpdateUserRequest } from "../interfaces/IUpdateUserRequest";
+import { IUpdateUserDto } from "../dtos/IUpdateUserDto";
 import { UpdateUserService } from "../services/UpdateUserService";
 
 export class UpdateUserContoller {
   async handle(req: Request, res: Response) {
     const { id } = req.params;
-    const updateUserDto = req.body as IUpdateUserRequest;
+    const updateUserDto = req.body as IUpdateUserDto;
 
     const service = container.resolve(UpdateUserService);
 

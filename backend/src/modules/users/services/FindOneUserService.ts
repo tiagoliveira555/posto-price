@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { userToUserResponse } from "../helpers/userToUserResponse";
+import { userToUserDto } from "../helpers/userToUserDto";
 import { NotFound } from "../../../shared/errors/NotFound";
-import { IUserResponse } from "../interfaces/IUserResponse";
+import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class FindOneUserService {
@@ -12,13 +12,13 @@ export class FindOneUserService {
     private userRepository: IUserRepository
   ) {}
 
-  async execute(id: string): Promise<IUserResponse> {
+  async execute(id: string): Promise<IUserDto> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
       throw new NotFound("Usuário não encontrado");
     }
 
-    return userToUserResponse(user);
+    return userToUserDto(user);
   }
 }

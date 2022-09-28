@@ -2,10 +2,10 @@ import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { ICreateUserRequest } from "../interfaces/ICreateUserRequest";
-import { userToUserResponse } from "../helpers/userToUserResponse";
+import { ICreateUserDto } from "../dtos/ICreateUserDto";
+import { userToUserDto } from "../helpers/userToUserDto";
 import { BadRequest } from "../../../shared/errors/BadRequest";
-import { IUserResponse } from "../interfaces/IUserResponse";
+import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class CreateUserService {
@@ -18,7 +18,7 @@ export class CreateUserService {
     name,
     username,
     password,
-  }: ICreateUserRequest): Promise<IUserResponse> {
+  }: ICreateUserDto): Promise<IUserDto> {
     const userExist = await this.userRepository.findByUserName(username);
 
     if (userExist) {
@@ -33,6 +33,6 @@ export class CreateUserService {
       password: hashPass,
     });
 
-    return userToUserResponse(user);
+    return userToUserDto(user);
   }
 }
