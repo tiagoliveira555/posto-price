@@ -2,11 +2,12 @@ import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
 
 import { IUserRepository } from "../repositories/IUserRepository";
+
+import { IUpdateUserDto } from "../dtos/IUpdateUserDto";
+import { IUserDto } from "../dtos/IUserDto";
 import { userToUserDto } from "../helpers/userToUserDto";
 import { NotFound } from "../../../shared/errors/NotFound";
 import { BadRequest } from "../../../shared/errors/BadRequest";
-import { IUpdateUserDto } from "../dtos/IUpdateUserDto";
-import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class UpdateUserService {

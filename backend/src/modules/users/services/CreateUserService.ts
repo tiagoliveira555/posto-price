@@ -2,10 +2,11 @@ import { inject, injectable } from "tsyringe";
 import bcrypt from "bcrypt";
 
 import { IUserRepository } from "../repositories/IUserRepository";
+
 import { ICreateUserDto } from "../dtos/ICreateUserDto";
+import { IUserDto } from "../dtos/IUserDto";
 import { userToUserDto } from "../helpers/userToUserDto";
 import { BadRequest } from "../../../shared/errors/BadRequest";
-import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class CreateUserService {

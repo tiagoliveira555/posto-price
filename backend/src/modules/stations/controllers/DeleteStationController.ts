@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { DeleteStationService } from "../services/DeleteStationService";
 
-import { DeleteUserService } from "../services/DeleteUserService";
-
-export class DeleteUserController {
+export class DeleteStationController {
   async handle(req: Request, res: Response) {
-    const { id } = req.params;
+    const id = req.params.id;
 
-    const service = container.resolve(DeleteUserService);
+    const service = container.resolve(DeleteStationService);
 
     await service.execute(id);
 

@@ -1,8 +1,9 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "../repositories/IUserRepository";
-import { userToUserDto } from "../helpers/userToUserDto";
+
 import { IUserDto } from "../dtos/IUserDto";
+import { userToUserDto } from "../helpers/userToUserDto";
 
 @injectable()
 export class ListAllUserService {

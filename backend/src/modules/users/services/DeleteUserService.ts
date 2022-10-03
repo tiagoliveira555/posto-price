@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "../repositories/IUserRepository";
+
 import { NotFound } from "../../../shared/errors/NotFound";
 
 @injectable()

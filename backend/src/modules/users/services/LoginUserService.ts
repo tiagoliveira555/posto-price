@@ -1,10 +1,12 @@
 import { inject, injectable } from "tsyringe";
 import bcript from "bcrypt";
-import { Unauthorized } from "../../../shared/errors/Unauthorized";
+import { sign } from "jsonwebtoken";
+
+import { IUserRepository } from "../repositories/IUserRepository";
+
 import { ILoginDto } from "../dtos/ILoginDto";
 import { IUserTokenDto } from "../dtos/IUserTokenDto";
-import { IUserRepository } from "../repositories/IUserRepository";
-import { sign } from "jsonwebtoken";
+import { Unauthorized } from "../../../shared/errors/Unauthorized";
 
 @injectable()
 export class LoginUserService {
@@ -33,6 +35,7 @@ export class LoginUserService {
 
     const userToken: IUserTokenDto = {
       user: {
+        id: user.id,
         name: user.name,
         username,
       },

@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { Unauthorized } from "../errors/Unauthorized";
 
-interface JwtPayload {
+type JwtPayload = {
   iat: number;
   exp: number;
   sub: string;
-}
+};
 
 export const isAuthenticated = (
   req: Request,
@@ -19,19 +19,19 @@ export const isAuthenticated = (
     throw new Unauthorized("Token é requerido");
   }
 
-  const [scheme, token] = authHeader.split(" ");
+  const [Bearer, token] = authHeader.split(" ");
 
-  if (scheme !== "Bearer") {
+  if (Bearer !== "Bearer") {
     throw new Unauthorized("Token mal formatado.");
   }
 
   try {
     const decodedToken = verify(token, process.env.JWT_SECRET || "");
 
-    const { sub } = decodedToken as JwtPayload;
+    const { sub: id } = decodedToken as JwtPayload;
 
     req.user = {
-      id: sub,
+      id,
     };
 
     next();

@@ -1,9 +1,10 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "../repositories/IUserRepository";
+
+import { IUserDto } from "../dtos/IUserDto";
 import { userToUserDto } from "../helpers/userToUserDto";
 import { NotFound } from "../../../shared/errors/NotFound";
-import { IUserDto } from "../dtos/IUserDto";
 
 @injectable()
 export class FindOneUserService {

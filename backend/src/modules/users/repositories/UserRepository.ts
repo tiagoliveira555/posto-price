@@ -1,9 +1,9 @@
-import { AppDataSource } from "../../../../data-source";
-import { ICreateUserDto } from "../../dtos/ICreateUserDto";
-import { User } from "../../entities/User";
-import { IUserRepository } from "../IUserRepository";
+import { AppDataSource } from "../../../data-source";
+import { ICreateUserDto } from "../dtos/ICreateUserDto";
+import { User } from "../entities/User";
+import { IUserRepository } from "./IUserRepository";
 
-export class UserRepositoryTypeOrm implements IUserRepository {
+export class UserRepository implements IUserRepository {
   private repository = AppDataSource.getRepository(User);
 
   async save(user: User): Promise<void> {
