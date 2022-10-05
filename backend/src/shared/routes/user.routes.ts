@@ -7,47 +7,30 @@ import { ListAllUserContoller } from "../../modules/users/controllers/ListAllUse
 import { LoginUserController } from "../../modules/users/controllers/LoginUserController";
 import { UpdateUserContoller } from "../../modules/users/controllers/UpdateUserController";
 
-import { idValidate } from "../middlewares/idValidate";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
+import { idValidate } from "../middlewares/idValidate";
 import { loginValidate } from "../middlewares/loginValidate";
 import { userValidate } from "../middlewares/userValidate";
-import { validate } from "../middlewares/validate";
 
 const userRoutes = Router();
 
-userRoutes.post(
-  "/login",
-  loginValidate,
-  validate,
-  new LoginUserController().handle
-);
+userRoutes.post("/login", loginValidate, new LoginUserController().handle);
 
-userRoutes.post("/", userValidate, validate, new CreateUserController().handle);
+userRoutes.post("/", userValidate, new CreateUserController().handle);
 
 userRoutes.use(isAuthenticated);
 
 userRoutes.get("/", new ListAllUserContoller().handle);
 
-userRoutes.get(
-  "/:id",
-  idValidate,
-  validate,
-  new FindOneUserController().handle
-);
+userRoutes.get("/:id", idValidate, new FindOneUserController().handle);
 
 userRoutes.put(
   "/:id",
   idValidate,
   userValidate,
-  validate,
   new UpdateUserContoller().handle
 );
 
-userRoutes.delete(
-  "/:id",
-  idValidate,
-  validate,
-  new DeleteUserController().handle
-);
+userRoutes.delete("/:id", idValidate, new DeleteUserController().handle);
 
 export { userRoutes };
