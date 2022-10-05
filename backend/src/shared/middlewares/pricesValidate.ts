@@ -1,4 +1,3 @@
-import { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
 import { validate } from "./validate";
 
@@ -23,7 +22,5 @@ export const pricesValidate = [
     .withMessage("Diesel é obrigatório.")
     .notEmpty()
     .withMessage("Diesel não pode ser vazio."),
-  (req: Request, res: Response, next: NextFunction) => {
-    validate(req, res, next);
-  },
+  validate,
 ];
