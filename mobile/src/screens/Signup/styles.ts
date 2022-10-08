@@ -6,7 +6,3 @@ export const Container = styled.SafeAreaView`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.background};
 `;
-
-export const LoadingIcon = styled.ActivityIndicator`
-  margin-top: 50px;
-`;
