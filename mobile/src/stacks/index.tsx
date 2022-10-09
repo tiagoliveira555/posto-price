@@ -1,15 +1,16 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Preload } from "../../screens/Preload";
-import { Signin } from "../../screens/Signin";
-import { Signup } from "../../screens/Signup";
+
+import { Preload } from "../screens/Preload";
+import { Signin } from "../screens/Signin";
+import { Signup } from "../screens/Signup";
 
 const Stack = createNativeStackNavigator();
 
 export const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Preload"
+      initialRouteName="Signin"
       screenOptions={{
         headerShown: false,
       }}
