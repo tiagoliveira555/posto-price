@@ -2,10 +2,10 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   width: 100%;
-  height: 50px;
+  height: 10%;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 `;
 
 export const TabArea = styled.View`
