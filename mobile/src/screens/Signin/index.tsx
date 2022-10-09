@@ -9,7 +9,7 @@ export const Signin = () => {
     <S.Container>
       <Logo />
       <S.InputArea>
-        <Inputs iconName="user" placeholder="Digite seu usuário" />
+        <Inputs iconName="user-alt" placeholder="Digite seu usuário" />
         <Inputs
           iconName="lock"
           placeholder="Digite sua senha"

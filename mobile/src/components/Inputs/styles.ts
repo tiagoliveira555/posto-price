@@ -6,7 +6,7 @@ export const InputContainer = styled.View`
   background-color: ${({ theme }) => theme.colors.secondary};
   flex-direction: row;
   border-radius: 8px;
-  padding: 0 5px 0 15px;
+  padding: 0 15px;
   align-items: center;
   margin-bottom: 15px;
 `;
