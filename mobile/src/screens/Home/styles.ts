@@ -16,7 +16,7 @@ export const UserNameText = styled.Text`
   margin-left: 50px;
   font-size: 22px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 5px;
 `;
 
