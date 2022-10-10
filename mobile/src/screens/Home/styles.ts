@@ -9,19 +9,30 @@ export const Container = styled.SafeAreaView`
 export const AreaText = styled.View`
   width: 100%;
   padding: 10px;
+  position: relative;
 `;
 
 export const UserNameText = styled.Text`
-  font-size: 20px;
+  margin-left: 50px;
+  font-size: 22px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
   margin-bottom: 5px;
 `;
 
 export const Subtitle = styled.Text`
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.secondary};
+  margin-left: 50px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.primary};
   margin-bottom: -10px;
+`;
+
+export const Logo = styled.Image`
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  width: 42px;
+  height: 43px;
 `;
 
 export const AreaMarkerContainer = styled.View`
