@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export const MainStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="MainTab"
+      initialRouteName="Signin"
       screenOptions={{
         headerShown: false,
       }}

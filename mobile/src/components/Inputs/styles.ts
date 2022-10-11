@@ -8,7 +8,13 @@ export const InputContainer = styled.View`
   border-radius: 8px;
   padding: 0 15px;
   align-items: center;
-  margin-bottom: 15px;
+`;
+
+export const AreaIcon = styled.View`
+  width: 25px;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Input = styled.TextInput`
@@ -16,4 +22,14 @@ export const Input = styled.TextInput`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.primary};
   margin-left: 10px;
+`;
+
+export const AreaError = styled.View`
+  min-height: 20px;
+`;
+
+export const TextError = styled.Text`
+  margin: 2px 0 0 5px;
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.error};
 `;

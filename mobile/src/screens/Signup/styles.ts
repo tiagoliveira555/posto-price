@@ -10,7 +10,7 @@ export const Container = styled.KeyboardAvoidingView.attrs({
 `;
 
 export const InputArea = styled.View`
-  margin-top: 25px;
+  margin-top: 10px;
   width: 100%;
   padding: 20px;
 `;
@@ -19,7 +19,7 @@ export const SignMessageButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 30px 0 20px;
+  margin: 5px 0;
 `;
 export const SignMessageButtonText = styled.Text`
   font-size: 15px;

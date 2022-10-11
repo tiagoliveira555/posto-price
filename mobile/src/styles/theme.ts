@@ -6,5 +6,6 @@ export default {
     textSecodary: "#A0A0B2",
     background: "#F0F0F5",
     white: "#FFFFFF",
+    error: "#dc1637",
   },
 };
