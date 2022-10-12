@@ -6,16 +6,18 @@ import { Logo } from "../../components/Logo";
 import * as S from "./styles";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { propsStack } from "../../routes/ModelsStacks";
+import { useNavigation } from "@react-navigation/native";
 
 interface FormData {
-  nameComplete: string;
+  completeName: string;
   username: string;
   password: string;
   password_confirm: string;
 }
 
 const schema = yup.object({
-  nameComplete: yup.string().required("Informe seu nome"),
+  completeName: yup.string().required("Informe seu nome"),
   username: yup.string().required("Informe seu usuário"),
   password: yup
     .string()
@@ -23,10 +25,13 @@ const schema = yup.object({
     .required("Digite uma senha"),
   password_confirm: yup
     .string()
-    .oneOf([yup.ref("password"), null], "A senha de confirmação não confere"),
+    .oneOf([yup.ref("password"), null], "A senha de confirmação não confere")
+    .required("Digite uma senha"),
 });
 
 export const Signup = () => {
+  const navigation = useNavigation<propsStack>();
+
   const {
     control,
     handleSubmit,
@@ -47,11 +52,11 @@ export const Signup = () => {
       <Logo />
       <S.InputArea>
         <Inputs
-          name="nameComplete"
+          name="completeName"
           control={control}
           iconName="user-tie"
           placeholder="Digite seu nome"
-          error={errors.nameComplete}
+          error={errors.completeName}
         />
         <Inputs
           name="username"
@@ -79,7 +84,13 @@ export const Signup = () => {
         <Button title="Cadastrar" onPress={handleSubmit(handleUserRegister)} />
       </S.InputArea>
 
-      <S.SignMessageButton>
+      <S.SignMessageButton
+        onPress={() =>
+          navigation.reset({
+            routes: [{ name: "Signin" }],
+          })
+        }
+      >
         <S.SignMessageButtonText>Já possui uma conta?</S.SignMessageButtonText>
         <S.SignMessageButtonTextBold>Faça Login</S.SignMessageButtonTextBold>
       </S.SignMessageButton>

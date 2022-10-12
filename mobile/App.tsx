@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { StatusBar } from "expo-status-bar";
 import theme from "./src/styles/theme";
 
-import { MainStack } from "./src/stacks/MainStack";
+import { MainStack } from "./src/routes";
 
 export default function App() {
   return (

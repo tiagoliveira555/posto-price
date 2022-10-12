@@ -19,6 +19,7 @@ export const AreaIcon = styled.View`
 
 export const Input = styled.TextInput`
   flex: 1;
+  height: 100%;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.primary};
   margin-left: 10px;

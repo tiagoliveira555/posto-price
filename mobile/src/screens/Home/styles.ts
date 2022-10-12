@@ -2,41 +2,42 @@ import styled from "styled-components/native";
 import { Platform } from "react-native";
 
 export const Container = styled.SafeAreaView`
-  height: 88%;
+  flex: 1;
   padding-top: ${Platform.OS === "android" ? "20px" : 0};
 `;
 
+export const AreaHeader = styled.View`
+  height: 50px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px -10px;
+`;
+
 export const AreaText = styled.View`
-  width: 100%;
-  padding: 10px;
-  position: relative;
+  flex: 1;
+  margin-left: 5px;
 `;
 
 export const UserNameText = styled.Text`
-  margin-left: 50px;
   font-size: 22px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: 5px;
 `;
 
 export const Subtitle = styled.Text`
-  margin-left: 50px;
   font-size: 13px;
   color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: -10px;
 `;
 
 export const Logo = styled.Image`
-  position: absolute;
-  left: 10px;
-  top: 12px;
   width: 42px;
-  height: 43px;
+  height: 44px;
 `;
 
 export const AreaMarkerContainer = styled.View`
-  height: 100%;
+  flex: 1;
+  margin-bottom: 2px;
   justify-content: center;
   align-items: center;
 `;

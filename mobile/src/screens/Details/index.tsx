@@ -2,10 +2,10 @@ import React from "react";
 import { Text } from "react-native";
 import * as S from "./styles";
 
-export const Description = () => {
+export const Details = () => {
   return (
     <S.Container>
-      <Text>Description</Text>
+      <Text>Details</Text>
     </S.Container>
   );
 };

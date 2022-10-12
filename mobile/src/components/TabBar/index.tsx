@@ -1,28 +1,23 @@
 import React from "react";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import * as S from "./styles";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
-export const TabBar = ({ navigation }: BottomTabBarProps) => {
-  const goto = (screen: string) => {
-    navigation.navigate(screen);
-  };
-
+export const TabBar = () => {
   return (
     <S.Container>
       <S.TabArea>
-        <S.TabItem onPress={() => goto("Description")}>
+        <S.TabItem onPress={() => null}>
           <MaterialIcons name="search" size={30} color="#322153" />
         </S.TabItem>
 
         <S.AreaCenter>
-          <S.TabItemCenter onPress={() => goto("Home")}>
+          <S.TabItemCenter onPress={() => null}>
             <MaterialIcons name="local-gas-station" size={40} color="white" />
           </S.TabItemCenter>
         </S.AreaCenter>
 
-        <S.TabItem onPress={() => goto("Description")}>
+        <S.TabItem onPress={() => null}>
           <MaterialIcons name="logout" size={30} color="#322153" />
         </S.TabItem>
       </S.TabArea>
