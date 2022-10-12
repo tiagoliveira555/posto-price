@@ -1,14 +1,20 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/Button";
 import { Inputs } from "../../components/Inputs";
 import { Logo } from "../../components/Logo";
-import * as S from "./styles";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import { api } from "../../utils/api";
-import { useNavigation } from "@react-navigation/native";
-import { Alert } from "react-native";
+
+import { Alert, DatePickerAndroid } from "react-native";
+
+import * as S from "./styles";
+import { useAuth } from "../../hooks/useAuth";
 
 interface FormData {
   username: string;
@@ -25,28 +31,18 @@ const schema = yup.object({
 
 export const Signin = () => {
   const navigation = useNavigation();
+  const { signIn } = useAuth();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
-  const handleSignin = async (data: FormData) => {
-    try {
-      const res = await api.post(`/users/login`, data);
-
-      if (res.data) {
-        navigation.reset({
-          routes: [{ name: "Home" }],
-        });
-      }
-    } catch {
-      Alert.alert("Usuário e/ou senha incorretos!");
-    }
+  const handleSignin = (data: FormData) => {
+    signIn(data.username, data.password);
   };
 
   return (
@@ -73,13 +69,7 @@ export const Signin = () => {
         <Button title="Entrar" onPress={handleSubmit(handleSignin)} />
       </S.InputArea>
 
-      <S.SignMessageButton
-        onPress={() =>
-          navigation.reset({
-            routes: [{ name: "Signup" }],
-          })
-        }
-      >
+      <S.SignMessageButton onPress={() => navigation.navigate("Signup")}>
         <S.SignMessageButtonText>
           Ainda não tem uma conta?
         </S.SignMessageButtonText>

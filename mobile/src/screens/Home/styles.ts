@@ -47,4 +47,5 @@ export const AreaMarker = styled.View`
   height: 98%;
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.colors.primary};
+  overflow: hidden;
 `;

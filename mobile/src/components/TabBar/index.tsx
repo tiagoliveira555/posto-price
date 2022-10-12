@@ -2,8 +2,11 @@ import React from "react";
 import * as S from "./styles";
 
 import { MaterialIcons } from "@expo/vector-icons";
+import { useAuth } from "../../hooks/useAuth";
 
 export const TabBar = () => {
+  const { signOut } = useAuth();
+
   return (
     <S.Container>
       <S.TabArea>
@@ -17,7 +20,7 @@ export const TabBar = () => {
           </S.TabItemCenter>
         </S.AreaCenter>
 
-        <S.TabItem onPress={() => null}>
+        <S.TabItem onPress={signOut}>
           <MaterialIcons name="logout" size={30} color="#322153" />
         </S.TabItem>
       </S.TabArea>

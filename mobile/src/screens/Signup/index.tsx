@@ -1,13 +1,16 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import { Inputs } from "../../components/Inputs";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/Button";
 import { Logo } from "../../components/Logo";
-import * as S from "./styles";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { propsStack } from "../../routes/ModelsStacks";
-import { useNavigation } from "@react-navigation/native";
+
+import * as S from "./styles";
+import { useAuth } from "../../hooks/useAuth";
 
 interface FormData {
   completeName: string;
@@ -30,21 +33,18 @@ const schema = yup.object({
 });
 
 export const Signup = () => {
-  const navigation = useNavigation<propsStack>();
+  const navigation = useNavigation();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
   const handleUserRegister = (data: FormData) => {
     console.log(data);
-
-    reset();
   };
 
   return (
@@ -84,13 +84,7 @@ export const Signup = () => {
         <Button title="Cadastrar" onPress={handleSubmit(handleUserRegister)} />
       </S.InputArea>
 
-      <S.SignMessageButton
-        onPress={() =>
-          navigation.reset({
-            routes: [{ name: "Signin" }],
-          })
-        }
-      >
+      <S.SignMessageButton onPress={() => navigation.goBack()}>
         <S.SignMessageButtonText>Já possui uma conta?</S.SignMessageButtonText>
         <S.SignMessageButtonTextBold>Faça Login</S.SignMessageButtonTextBold>
       </S.SignMessageButton>

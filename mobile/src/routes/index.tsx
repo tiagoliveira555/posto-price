@@ -1,27 +1,21 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
+import { MainStack } from "./HomeStack";
+import { AuthStack } from "./AuthStack";
+import { useAuth } from "../hooks/useAuth";
 import { Preload } from "../screens/Preload";
-import { Signin } from "../screens/Signin";
-import { Signup } from "../screens/Signup";
-import { Home } from "../screens/Home";
-import { Details } from "../screens/Details";
 
-const Stack = createNativeStackNavigator();
+export const Routes = () => {
+  const { authData, loading } = useAuth();
 
-export const MainStack = () => {
+  if (loading) {
+    return <Preload />;
+  }
+
   return (
-    <Stack.Navigator
-      initialRouteName="Signin"
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Preload" component={Preload} />
-      <Stack.Screen name="Signin" component={Signin} />
-      <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Detais" component={Details} />
-    </Stack.Navigator>
+    <NavigationContainer>
+      {authData ? <MainStack /> : <AuthStack />}
+    </NavigationContainer>
   );
 };
