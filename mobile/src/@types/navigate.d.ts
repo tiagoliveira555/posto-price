@@ -1,3 +1,5 @@
+import { StationsData } from "../screens/Home";
+
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
@@ -5,7 +7,7 @@ export declare global {
       Signin: undefined;
       Signup: undefined;
       Home: undefined;
-      Details: undefined;
+      Details: { id: string };
     }
   }
 }

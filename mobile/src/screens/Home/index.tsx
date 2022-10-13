@@ -9,11 +9,10 @@ import logoPostoPrice from "../../assets/posto-price.png";
 import { TabBar } from "../../components/TabBar";
 import { useAuth } from "../../hooks/useAuth";
 import { api } from "../../utils/api";
-import { Preload } from "../Preload";
-import { ActivityIndicator, Alert } from "react-native";
-import { setLocale } from "yup";
+import { ActivityIndicator } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-interface StationsData {
+export interface StationData {
   id: string;
   name: string;
   latitude: number;
@@ -34,6 +33,8 @@ interface Origin {
 
 export const Home = () => {
   const { authData } = useAuth();
+  const navigation = useNavigation();
+
   const firstName = authData?.user.name.split(" ")[0];
 
   const initialOrigin = {
@@ -43,14 +44,15 @@ export const Home = () => {
     longitudeDelta: 0.0421,
   };
 
-  const [stations, setStations] = useState<StationsData[]>();
+  const [stations, setStations] = useState<StationData[]>();
   const [origin, setOrigin] = useState<Origin>();
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status === "granted") {
+        console.log(status);
         const location = await Location.getCurrentPositionAsync({});
         setOrigin({
           latitude: location.coords.latitude,
@@ -62,6 +64,9 @@ export const Home = () => {
         setOrigin(initialOrigin);
       }
     })();
+  }, []);
+
+  useEffect(() => {
     const data = async () => {
       const res = await api.get("/stations");
 
@@ -96,7 +101,9 @@ export const Home = () => {
                       longitude: Number(item.logitude),
                       latitude: Number(item.latitude),
                     }}
-                    onPress={() => Alert.alert(item.name)}
+                    onPress={() =>
+                      navigation.navigate("Details", { id: item.id })
+                    }
                   />
                 );
               })}

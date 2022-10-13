@@ -51,8 +51,7 @@ export const AuthProvider = ({ children }: AuthProviderData) => {
       AsyncStorage.setItem("@AuthData", JSON.stringify(res.data));
 
       setAuthData(res.data);
-    } catch (error) {
-      console.log(`Error: ${error}`);
+    } catch {
       Alert.alert("usuário e/ou senha inválidos!");
     }
   };

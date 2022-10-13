@@ -14,7 +14,7 @@ export const MainStack = () => {
       }}
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Detais" component={Details} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
 };
