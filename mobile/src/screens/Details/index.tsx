@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Text } from "react-native";
 import { useToast } from "react-native-toast-notifications";
@@ -6,6 +6,9 @@ import { useAuth } from "../../hooks/useAuth";
 import { api } from "../../services/api";
 import { StationData } from "../Home";
 import * as S from "./styles";
+
+import { Feather } from "@expo/vector-icons";
+import Logo from "../../assets/posto-price.png";
 
 interface Props {
   id: string;
@@ -23,6 +26,7 @@ export const Details = () => {
 
   const { signOut } = useAuth();
   const toast = useToast();
+  const navigation = useNavigation();
 
   const [station, setStation] = useState<StationData>();
   const [address, setAddress] = useState<AddressParams>();
@@ -54,17 +58,38 @@ export const Details = () => {
 
   return (
     <S.Container>
-      <Text>Posto: {station?.name}</Text>
-      <Text></Text>
-      <Text>Endereço: {address?.street}</Text>
-      <Text>Cidade: {address?.city}</Text>
-      <Text>Estado: {address?.state}</Text>
-      <Text></Text>
-      <Text>Preços:</Text>
-      <Text>Gasolina Comum: R$ {station?.regularGasoline}</Text>
-      <Text>Gasolina Aditivada: R$ {station?.additiveGasoline}</Text>
-      <Text>Etanol: R$ {station?.ethanol}</Text>
-      <Text>Diesel: R$ {station?.diesel}</Text>
+      <S.Header>
+        <S.ButtonBack onPress={() => navigation.goBack()}>
+          <Feather name="arrow-left-circle" size={40} color="#322153" />
+        </S.ButtonBack>
+
+        <S.Logo source={Logo} />
+      </S.Header>
+      <S.StationName>{station?.name}</S.StationName>
+      <S.AddressArea>
+        <S.AddressLabel>Endereço</S.AddressLabel>
+        <S.AddressText>{address?.street}</S.AddressText>
+        <S.AddressText>{address?.city}</S.AddressText>
+        <S.AddressText>{address?.state}</S.AddressText>
+      </S.AddressArea>
+      <S.PriceTitle>Preços dos Combustíves:</S.PriceTitle>
+
+      <S.GasArea>
+        <S.GasName>GASOLINA COMUM: </S.GasName>
+        <S.Price>R$ {station?.regularGasoline}</S.Price>
+      </S.GasArea>
+      <S.GasArea>
+        <S.GasName>GASOLINA ATIVIVADA: </S.GasName>
+        <S.Price>R$ {station?.additiveGasoline}</S.Price>
+      </S.GasArea>
+      <S.GasArea>
+        <S.GasName>ETANOL: </S.GasName>
+        <S.Price>R$ {station?.ethanol}</S.Price>
+      </S.GasArea>
+      <S.GasArea>
+        <S.GasName>DIESEL: </S.GasName>
+        <S.Price>R$ {station?.diesel}</S.Price>
+      </S.GasArea>
     </S.Container>
   );
 };
