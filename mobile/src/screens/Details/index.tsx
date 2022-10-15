@@ -1,7 +1,9 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Text } from "react-native";
-import { api } from "../../utils/api";
+import { useToast } from "react-native-toast-notifications";
+import { useAuth } from "../../hooks/useAuth";
+import { api } from "../../services/api";
 import { StationData } from "../Home";
 import * as S from "./styles";
 
@@ -17,27 +19,33 @@ interface AddressParams {
 
 export const Details = () => {
   const route = useRoute();
-
   const { id } = route.params as Props;
+
+  const { signOut } = useAuth();
+  const toast = useToast();
 
   const [station, setStation] = useState<StationData>();
   const [address, setAddress] = useState<AddressParams>();
 
   useEffect(() => {
-    (async () => {
-      const res = await api.get(`/stations/${id}`);
-      setStation(res.data);
-      fetch(
-        `https://api.geoapify.com/v1/geocode/reverse?lat=${res.data.latitude}&lon=${res.data.logitude}&lang=pt&apiKey=4112d248294e437ab34dd177bba213b2`
-      ).then(async (req) => {
-        const data = await req.json();
-        setAddress({
-          street: data.features[0].properties.street,
-          city: data.features[0].properties.city,
-          state: data.features[0].properties.state,
+    api
+      .get(`/stations/${id}`)
+      .then((res) => {
+        setStation(res.data);
+        api(
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${res.data.latitude}&lon=${res.data.logitude}&lang=pt&apiKey=4112d248294e437ab34dd177bba213b2`
+        ).then((res) => {
+          setAddress({
+            street: res.data.features[0].properties.street,
+            city: res.data.features[0].properties.city,
+            state: res.data.features[0].properties.state,
+          });
         });
+      })
+      .catch(() => {
+        toast.show("Autentique-se!", { type: "warning" });
+        signOut();
       });
-    })();
   }, []);
 
   if (!address) {

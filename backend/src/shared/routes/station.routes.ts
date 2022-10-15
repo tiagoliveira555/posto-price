@@ -13,7 +13,7 @@ import { stationValidate } from "../middlewares/stationValidate";
 
 const stationRoutes = Router();
 
-// stationRoutes.use(isAuthenticated);
+stationRoutes.use(isAuthenticated);
 
 stationRoutes.post("/", stationValidate, new CreateStationController().handle);
 

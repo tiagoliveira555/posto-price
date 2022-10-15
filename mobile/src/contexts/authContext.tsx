@@ -1,10 +1,10 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from "react-native";
 
-import { api } from "../utils/api";
+import { api } from "../services/api";
+import { useToast } from "react-native-toast-notifications";
 
-interface AuthData {
+export interface AuthData {
   user: {
     id: string;
     name: string;
@@ -32,6 +32,8 @@ export const AuthProvider = ({ children }: AuthProviderData) => {
   const [authData, setAuthData] = useState<AuthData>();
   const [loading, setLoading] = useState(true);
 
+  const toast = useToast();
+
   const loadFromStorage = async () => {
     const auth = await AsyncStorage.getItem("@AuthData");
     if (auth) {
@@ -44,16 +46,17 @@ export const AuthProvider = ({ children }: AuthProviderData) => {
     loadFromStorage();
   }, []);
 
-  const signIn = async (username: string, password: string) => {
-    try {
-      const res = await api.post("/users/login", { username, password });
+  const signIn = (username: string, password: string) => {
+    api
+      .post("/users/login", { username, password })
+      .then((res) => {
+        AsyncStorage.setItem("@AuthData", JSON.stringify(res.data));
 
-      AsyncStorage.setItem("@AuthData", JSON.stringify(res.data));
-
-      setAuthData(res.data);
-    } catch {
-      Alert.alert("usuário e/ou senha inválidos!");
-    }
+        setAuthData(res.data);
+      })
+      .catch((err) => {
+        toast.show(err.response.data.errors[0], { type: "danger" });
+      });
   };
 
   const signOut = () => {

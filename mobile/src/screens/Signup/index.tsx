@@ -11,6 +11,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import * as S from "./styles";
 import { useAuth } from "../../hooks/useAuth";
+import { api } from "../../services/api";
+import { Alert } from "react-native";
+import { useToast } from "react-native-toast-notifications";
 
 interface FormData {
   completeName: string;
@@ -34,6 +37,7 @@ const schema = yup.object({
 
 export const Signup = () => {
   const navigation = useNavigation();
+  const toast = useToast();
 
   const {
     control,
@@ -44,7 +48,19 @@ export const Signup = () => {
   });
 
   const handleUserRegister = (data: FormData) => {
-    console.log(data);
+    api
+      .post("/users", {
+        name: data.completeName,
+        username: data.username,
+        password: data.password,
+      })
+      .then(() => {
+        toast.show("Usuário cadastrado com sucesso!", { type: "success" });
+        navigation.goBack();
+      })
+      .catch((err) => {
+        toast.show(err.response.data.errors[0], { type: "danger" });
+      });
   };
 
   return (

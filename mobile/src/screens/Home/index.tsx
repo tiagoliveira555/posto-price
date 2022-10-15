@@ -8,9 +8,10 @@ import * as S from "./styles";
 import logoPostoPrice from "../../assets/posto-price.png";
 import { TabBar } from "../../components/TabBar";
 import { useAuth } from "../../hooks/useAuth";
-import { api } from "../../utils/api";
-import { ActivityIndicator } from "react-native";
+import { api } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
+import { Preload } from "../Preload";
+import { useToast } from "react-native-toast-notifications";
 
 export interface StationData {
   id: string;
@@ -32,8 +33,9 @@ interface Origin {
 }
 
 export const Home = () => {
-  const { authData } = useAuth();
+  const { authData, signOut } = useAuth();
   const navigation = useNavigation();
+  const toast = useToast();
 
   const firstName = authData?.user.name.split(" ")[0];
 
@@ -52,7 +54,6 @@ export const Home = () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status === "granted") {
-        console.log(status);
         const location = await Location.getCurrentPositionAsync({});
         setOrigin({
           latitude: location.coords.latitude,
@@ -67,13 +68,13 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    const data = async () => {
-      const res = await api.get("/stations");
-
-      setStations(res.data);
-    };
-
-    data();
+    api
+      .get("/stations")
+      .then((res) => setStations(res.data))
+      .catch(() => {
+        toast.show("Autentique-se!", { type: "warning" });
+        signOut();
+      });
   }, []);
 
   return (
@@ -109,7 +110,7 @@ export const Home = () => {
               })}
             </MapView>
           ) : (
-            <ActivityIndicator style={{ flex: 1 }} />
+            <Preload />
           )}
         </S.AreaMarker>
       </S.AreaMarkerContainer>

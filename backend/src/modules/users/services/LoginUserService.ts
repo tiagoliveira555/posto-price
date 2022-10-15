@@ -19,13 +19,13 @@ export class LoginUserService {
     const user = await this.userRepository.findByUserName(username);
 
     if (!user) {
-      throw new Unauthorized("Usuário ou senha icorretos.");
+      throw new Unauthorized("Usuário e/ou senha incorretos.");
     }
 
     const verifyPass = await bcript.compare(password, user.password);
 
     if (!verifyPass) {
-      throw new Unauthorized("Usuário ou senha icorretos.");
+      throw new Unauthorized("Usuário e/ou senha incorretos.");
     }
 
     const token = sign({}, process.env.JWT_SECRET || "", {

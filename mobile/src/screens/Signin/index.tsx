@@ -9,10 +9,6 @@ import { Logo } from "../../components/Logo";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { api } from "../../utils/api";
-
-import { Alert, DatePickerAndroid } from "react-native";
-
 import * as S from "./styles";
 import { useAuth } from "../../hooks/useAuth";
 
